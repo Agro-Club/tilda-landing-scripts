@@ -1,0 +1,262 @@
+<div class="regionNotification_root" id="regionNotification_root">
+  <div class="regionNotification_inner">
+    %%notificationInner%%
+    <form class="regionNotification_form" id="regionNotification_form">
+      <select
+        name="country"
+        class="regionNotification_country"
+        id="regionNotification_country"
+      ></select>
+      <button
+        type="submit"
+        class="regionNotification_button button"
+        id="regionNotification_button"
+      >
+        %%notificationButton%%
+      </button>
+    </form>
+  </div>
+  <button class="regionNotification_close button" id="regionNotification_close">
+    &#215;
+  </button>
+</div>
+%%detectedRegion%%
+
+<style>
+  .regionNotification_root {
+    width: 100%;
+    min-height: 72px;
+    background-color: #172f48;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    z-index: 100000; /*sorry*/
+    padding: 8px 0;
+    position: fixed;
+    bottom: 0;
+    display: none;
+    font-family: "Montserrat", Arial, sans-serif;
+    box-sizing: border-box;
+  }
+
+  .regionNotification_root_visible {
+    display: flex;
+  }
+
+  .regionNotification_inner {
+    margin: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ecf5fd;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    color: white;
+    font-family: "Montserrat", Arial, sans-serif;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 20px;
+    transition: transform ease-in 0.1s;
+  }
+
+  .button:hover {
+    transform: scale(1.1);
+  }
+
+  .regionNotification_close {
+    margin-right: 24px;
+    font-size: 40px;
+  }
+
+  .regionNotification_button {
+    background-color: #037bff;
+    border-radius: 8px;
+    transition: transform ease-in 0.1s;
+    font-family: "Montserrat", Arial, sans-serif;
+    height: 34px;
+    margin-left: 16px;
+    padding: 0 12px;
+  }
+
+  .regionNotification_form {
+    display: flex;
+    align-items: center;
+    margin-block-end: 0;
+  }
+
+  .regionNotification_country {
+    margin-left: 24px;
+    border: 1px solid #ecf5fd;
+    border-radius: 8px;
+    padding: 5px 16px;
+    line-height: 20px;
+    font-size: 14px;
+    background: none;
+    color: white;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    font-family: "Montserrat", Arial, sans-serif;
+    cursor: pointer;
+  }
+
+  .regionNotification_country option {
+    color: black;
+  }
+
+  .regionNotification_country::-ms-expand {
+    display: none;
+  }
+
+  [data-replace-key="detectedRegion"] {
+    display: none;
+  }
+
+  @media screen and (max-width: 955px) {
+    .regionNotification_root {
+      padding: 16px 0;
+    }
+
+    .regionNotification_form {
+      margin-top: 8px;
+    }
+
+    .regionNotification_close {
+      position: absolute;
+      right: 8px;
+      top: 17px;
+      margin-right: 0;
+    }
+
+    .regionNotification_country {
+      margin-left: 0;
+    }
+
+    .regionNotification_inner {
+      margin: 0 48px;
+    }
+  }
+</style>
+
+<script>
+  "use strict";
+
+  const url = location.pathname;
+
+  const regions = {
+    us: {
+      title: "USA",
+      root: "/",
+    },
+    ca: {
+      title: "Canada",
+      root: "/ca/",
+    },
+    es: {
+      title: "Spain",
+      root: "/es/",
+    },
+    ru: {
+      title: "Russia",
+      root: "/ru/",
+    },
+  };
+
+  //Functions
+  const setRegionOverride = (region) => {
+    sessionStorage.setItem("OVERRIDE_REGION", region);
+  };
+
+  const getRegionOverride = () => sessionStorage.getItem("OVERRIDE_REGION");
+
+  const getRegionByUrl = () => {
+    switch (true) {
+      case url.includes(regions.ca.root):
+        return "ca";
+      case url.includes(regions.es.root):
+        return "es";
+      case url.includes(regions.ru.root):
+        return "ru";
+      default:
+        return "us";
+    }
+  };
+
+  const redirect = (region) => {
+    location.replace(`${location.origin}${regions[region].root}`);
+  };
+
+  const regionByUrl = getRegionByUrl();
+  const regionOverride = getRegionOverride();
+
+  const span = $('[data-replace-key="detectedRegion"]');
+
+  span.on("DOMSubtreeModified", () => {
+    const detectedRegion = span.text();
+    if (detectedRegion) {
+      // Elements
+      const notificationRoot = document.getElementById(
+        "regionNotification_root"
+      );
+      const notificationCountry = document.getElementById(
+        "regionNotification_country"
+      );
+      const notificationForm = document.getElementById(
+        "regionNotification_form"
+      );
+      const notificationCloseButton = document.getElementById(
+        "regionNotification_close"
+      );
+
+      //Event handlers
+      const onClickClose = () => {
+        notificationRoot.classList.remove("regionNotification_root_visible");
+        setRegionOverride(regionByUrl);
+      };
+
+      const onSubmit = (e) => {
+        e.preventDefault();
+        const code = regionNotification_form.country.value;
+        setRegionOverride(code);
+        notificationRoot.classList.remove("regionNotification_root_visible");
+
+        if (code !== regionByUrl) {
+          redirect(code);
+        }
+      };
+
+      notificationCloseButton.addEventListener("pointerup", onClickClose);
+      notificationForm.addEventListener("submit", onSubmit);
+
+      //Main
+
+      const isRegionMatched = detectedRegion === regionByUrl;
+      const isRegionOverrideMatched = regionOverride === regionByUrl;
+
+      if (!isRegionMatched && !regionOverride) {
+        notificationRoot.classList.add("regionNotification_root_visible");
+      }
+      notificationCountry.innerHTML = Object.entries(regions).reduce(
+        (acc, [key, region]) => {
+          acc += `<option value="${key}" ${
+            detectedRegion === key ? 'selected="true"' : ""
+          }>${region.title}</option>`;
+          return acc;
+        },
+        ""
+      );
+    }
+  });
+</script>
