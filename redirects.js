@@ -1,5 +1,3 @@
-"use strict";
-
 const url = location.pathname;
 
 const regions = {
