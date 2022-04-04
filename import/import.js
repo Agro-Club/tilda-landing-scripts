@@ -10,7 +10,6 @@ importContainers.each((index) => {
   if (url) {
     fetch(url).then((response) => {
       response.text().then((text) => {
-        console.log(text);
         $(item).html(text);
         nodeScriptReplace(item);
       });
