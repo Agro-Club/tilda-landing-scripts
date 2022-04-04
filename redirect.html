@@ -205,6 +205,8 @@
 
   span.on("DOMSubtreeModified", () => {
     const detectedRegion = span.text();
+
+    console.log(detectedRegion);
     if (detectedRegion) {
       // Elements
       const notificationRoot = document.getElementById(
