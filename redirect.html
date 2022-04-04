@@ -1,6 +1,8 @@
 <div class="regionNotification_root" id="regionNotification_root">
   <div class="regionNotification_inner">
-    <span data-replace-key="notificationInner"></span>
+    <span data-replace-key="notificationInner"
+      >Select a country or region to match the content to your location</span
+    >
     <form class="regionNotification_form" id="regionNotification_form">
       <select
         name="country"
@@ -12,7 +14,7 @@
         class="regionNotification_button button"
         id="regionNotification_button"
       >
-        <span data-replace-key="notificationButton"></span>
+        <span data-replace-key="notificationButton">Continue</span>
       </button>
     </form>
   </div>
@@ -196,8 +198,6 @@
     }
   };
 
-  const isValidRegion = (str) => regionKeys.includes(str);
-
   const redirect = (region) => {
     location.replace(`${location.origin}${regions[region].root}`);
   };
@@ -210,9 +210,7 @@
   span.on("DOMSubtreeModified", () => {
     const detectedRegion = span.text();
 
-    if (isValidRegion(detectedRegion)) {
-      console.log(detectedRegion);
-
+    if (regionKeys.includes(detectedRegion)) {
       // Elements
       const notificationRoot = document.getElementById(
         "regionNotification_root"
