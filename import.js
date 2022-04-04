@@ -2,6 +2,6 @@
 
 const importContainers = $("importContainer");
 
-importContainers.forEach((el) => {
-  console.log(el);
+importContainers.each((index) => {
+  console.log($(this));
 });
