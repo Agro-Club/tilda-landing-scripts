@@ -17,24 +17,9 @@ importContainers.each((index) => {
   }
 });
 
-const isScript = (node) => node.tagName === "SCRIPT";
-
 const nodeScriptReplace = (node) => {
-  const script = $(node).children("script");
-  script.replaceWith(nodeScriptClone(script));
-};
+  if (node.tagName === "SCRIPT") return $(node).replaceWith($(node).clone());
+  const scripts = $(node).find("script");
 
-const nodeScriptClone = (node) => {
-  const script = document.createElement("script");
-  script.text = node.innerHTML;
-
-  let i = -1;
-  let attr;
-
-  const attrs = node.attributes;
-  while (++i < attrs.length) {
-    script.setAttribute((attr = attrs[i]).name, attr.value);
-  }
-
-  return script;
+  scripts.each((index) => scripts.replaceWith($(scripts[index]).clone()));
 };
