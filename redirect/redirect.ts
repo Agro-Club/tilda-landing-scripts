@@ -22,7 +22,7 @@ const regions = {
 const regionKeys = Object.keys(regions);
 
 //Functions
-const setRegionOverride = (region) => {
+const setRegionOverride = (region: string) => {
   sessionStorage.setItem("OVERRIDE_REGION", region);
 };
 
@@ -69,10 +69,10 @@ const onCountryDetect = () => {
     const onSubmit = (e) => {
       e.preventDefault();
       const code = notificationCountry.val();
-      setRegionOverride(code);
       notificationRoot.removeClass("regionNotification_root_visible");
 
       if (typeof code === "string" && code !== regionByUrl) {
+        setRegionOverride(code);
         redirect(code);
       }
     };
