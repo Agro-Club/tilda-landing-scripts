@@ -1,0 +1,25 @@
+{
+  "name": "tilda-landing-scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:import": "esbuild import/import.ts --outfile=import/import.min.js --bundle --minify --loader:.ts=ts --target=es6",
+    "build:redirect": "esbuild redirect/redirect.ts --outfile=redirect/redirect.min.js --bundle --minify --loader:.ts=ts --target=es6",
+    "build": "yarn build:import & yarn build:redirect"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Agro-Club/tilda-landing-scripts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Agro-Club/tilda-landing-scripts/issues"
+  },
+  "homepage": "https://github.com/Agro-Club/tilda-landing-scripts#readme",
+  "dependencies": {
+    "@types/jquery": "^3.5.14",
+    "esbuild": "^0.14.31"
+  }
+}
