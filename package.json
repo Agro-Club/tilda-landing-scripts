@@ -6,7 +6,8 @@
   "scripts": {
     "build:import": "esbuild import/import.ts --outfile=import/import.min.js --bundle --minify --loader:.ts=ts --target=es6",
     "build:redirect": "esbuild redirect/redirect.ts --outfile=redirect/redirect.min.js --bundle --minify --loader:.ts=ts --target=es6",
-    "build": "yarn build:import & yarn build:redirect"
+    "build:grains": "esbuild grains/grains.ts --outfile=grains/grains.min.js --bundle --minify --loader:.ts=ts --target=es6",
+    "build": "yarn build:import & yarn build:redirect & yarn build:grains"
   },
   "repository": {
     "type": "git",

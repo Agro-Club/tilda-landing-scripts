@@ -1,26 +1,26 @@
-<div class="regionNotification_root" id="regionNotification_root">
-  <div class="regionNotification_inner">
+<div class="regionNotification__root" id="regionNotification__root">
+  <div class="regionNotification__inner">
     <span data-replace-key="notificationInner"
       >Select a country or region to match the content to your location</span
     >
-    <form class="regionNotification_form" id="regionNotification_form">
+    <form class="regionNotification__form" id="regionNotification__form">
       <select
         name="country"
-        class="regionNotification_country"
-        id="regionNotification_country"
+        class="regionNotification__country"
+        id="regionNotification__country"
       ></select>
       <button
         type="submit"
-        class="regionNotification_button regionNotification_submit"
-        id="regionNotification_button"
+        class="regionNotification__button regionNotification__submit"
+        id="regionNotification__button"
       >
         <span data-replace-key="notificationButton">Continue</span>
       </button>
     </form>
   </div>
   <button
-    class="regionNotification_close regionNotification_button"
-    id="regionNotification_close"
+    class="regionNotification__close regionNotification__button"
+    id="regionNotification__close"
   >
     &#215;
   </button>
@@ -28,7 +28,7 @@
 <span data-replace-key="detectedRegion"></span>
 
 <style>
-  .regionNotification_root {
+  .regionNotification__root {
     width: 100%;
     min-height: 72px;
     background-color: #172f48;
@@ -44,11 +44,11 @@
     box-sizing: border-box;
   }
 
-  .regionNotification_root_visible {
+  .regionNotification__root__visible {
     display: flex;
   }
 
-  .regionNotification_inner {
+  .regionNotification__inner {
     margin: 0 16px;
     display: flex;
     align-items: center;
@@ -62,7 +62,7 @@
     text-align: center;
   }
 
-  .regionNotification_button {
+  .regionNotification__button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,16 +76,16 @@
     transition: transform ease-in 0.1s;
   }
 
-  .regionNotification_button:hover {
+  .regionNotification__button:hover {
     transform: scale(1.1);
   }
 
-  .regionNotification_close {
+  .regionNotification__close {
     margin-right: 24px;
     font-size: 40px;
   }
 
-  .regionNotification_button.regionNotification_submit {
+  .regionNotification__button.regionNotification__submit {
     background-color: #037bff;
     border-radius: 8px;
     transition: transform ease-in 0.1s;
@@ -95,13 +95,13 @@
     padding: 0 12px;
   }
 
-  .regionNotification_form {
+  .regionNotification__form {
     display: flex;
     align-items: center;
     margin-block-end: 0;
   }
 
-  .regionNotification_country {
+  .regionNotification__country {
     margin-left: 24px;
     border: 1px solid #ecf5fd;
     border-radius: 8px;
@@ -117,11 +117,11 @@
     cursor: pointer;
   }
 
-  .regionNotification_country option {
+  .regionNotification__country option {
     color: black;
   }
 
-  .regionNotification_country::-ms-expand {
+  .regionNotification__country::-ms-expand {
     display: none;
   }
 
@@ -130,26 +130,26 @@
   }
 
   @media screen and (max-width: 955px) {
-    .regionNotification_root {
+    .regionNotification__root {
       padding: 16px 0;
     }
 
-    .regionNotification_form {
+    .regionNotification__form {
       margin-top: 8px;
     }
 
-    .regionNotification_close {
+    .regionNotification__close {
       position: absolute;
       right: 8px;
       top: 17px;
       margin-right: 0;
     }
 
-    .regionNotification_country {
+    .regionNotification__country {
       margin-left: 0;
     }
 
-    .regionNotification_inner {
+    .regionNotification__inner {
       margin: 0 48px;
     }
   }

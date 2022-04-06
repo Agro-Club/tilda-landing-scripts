@@ -56,21 +56,21 @@ $(document).ready(() => {
 
     if (regionKeys.includes(detectedRegion)) {
       // Elements
-      const notificationRoot = $("#regionNotification_root");
-      const notificationCountry = $("#regionNotification_country");
-      const notificationForm = $("#regionNotification_form");
-      const notificationCloseButton = $("#regionNotification_close");
+      const notificationRoot = $("#regionNotification__root");
+      const notificationCountry = $("#regionNotification__country");
+      const notificationForm = $("#regionNotification__form");
+      const notificationCloseButton = $("#regionNotification__close");
 
       //Event handlers
       const onClickClose = () => {
-        notificationRoot.removeClass("regionNotification_root_visible");
+        notificationRoot.removeClass("regionNotification__root__visible");
         setRegionOverride(regionByUrl);
       };
 
       const onSubmit = (e) => {
         e.preventDefault();
         const code = notificationCountry.val();
-        notificationRoot.removeClass("regionNotification_root_visible");
+        notificationRoot.removeClass("regionNotification__root__visible");
 
         if (typeof code === "string" && code !== regionByUrl) {
           setRegionOverride(code);
@@ -86,7 +86,7 @@ $(document).ready(() => {
       const isRegionMatched = detectedRegion === regionByUrl;
 
       if (!isRegionMatched && !regionOverride) {
-        notificationRoot.addClass("regionNotification_root_visible");
+        notificationRoot.addClass("regionNotification__root__visible");
       }
       notificationCountry.html(
         Object.entries(regions).reduce((acc, [key, region]) => {
