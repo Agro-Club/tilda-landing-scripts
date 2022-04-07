@@ -136,7 +136,7 @@ const updateTabs = (tabs: JQuery[]) => {
 };
 
 const createTabChange =
-  (content: JQuery, tabs: JQuery[], tab: number) => (e) => {
+  (content: JQuery, tabs: JQuery[], tab: number) => () => {
     currentTab = tab;
     updateTabs(tabs);
     updateGrainsContent(content);
@@ -147,7 +147,7 @@ $(document).ready(() => {
   const tabPurchase = $("#grains__tabs__tab_purchase");
   const tabSale = $("#grains__tabs__tab_sale");
   const tabs = [tabPurchase, tabSale];
-  updateTabs(tabs);
+  tabPurchase.attr("data-active", 'true')
 
   tabPurchase.on("click", createTabChange(content, tabs, 0));
   tabSale.on("click", createTabChange(content, tabs, 1));
