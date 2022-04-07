@@ -22,6 +22,12 @@ type BidFromApi = {
   price_cpt: number;
   product: Pick<ProductFromApi, "id" | "slug" | "title">;
   parameters_description: string;
+  parameters: {
+    id: number;
+    condition_label: string;
+    parameter_value: number;
+  }[];
+  quantity: number;
 };
 
 type Prices = {
@@ -33,7 +39,10 @@ type Product = {
   title: string;
   purchase: Prices;
   sale: Prices;
-  description?: string;
+  description:{
+    purchase: string;
+    sale: string;
+  }
 };
 
 const api = async (input: RequestInfo, init?: RequestInit): Promise<any> => {
@@ -60,6 +69,8 @@ const fetchBids = async (
   return [responses[0].results[0], responses[1].results[0]];
 };
 
+const createDescription = (bid: BidFromApi) => `${bid.quantity} т${bid.parameters[0] ? ` / ${bid.parameters[0].condition_label}${bid.parameters[0].parameter_value}` : ''}`
+
 const fetchProducts = async () => {
   const result: Product[] = [];
   const productsFromApi: ProductFromApi[] = await api(
@@ -85,6 +96,10 @@ const fetchProducts = async () => {
           priceExw: sale.price_exw,
           priceCpt: sale.price_cpt,
         },
+        description: {
+          purchase: createDescription(purchase),
+          sale: createDescription(purchase)
+        }
       });
     });
   return result;
@@ -96,7 +111,7 @@ const createCard = (product: Product, bid_type: BidFromApi["bid_type"]) => `
   <div class="grains__card">
     <h4 class="grains__card__title typography_h5">${product.title}</h4>
     <div class="grains__card__description typography_caption-default">
-      300 т / ≥10
+      ${product.description[bid_type]}
     </div>
     <div class="grains__card__prices">
       <div
