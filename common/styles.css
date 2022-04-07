@@ -1,3 +1,7 @@
+.import-container {
+  height: 100%;
+}
+
 .typography {
   font-family: "Arial";
   font-style: normal;
@@ -29,6 +33,9 @@
   position: absolute;
   width: 48px;
   height: 48px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .loader::before,

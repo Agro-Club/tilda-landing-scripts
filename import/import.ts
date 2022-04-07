@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  const importContainers = $(".importContainer");
+  const importContainers = $(".import-container");
 
   importContainers.each((index) => {
     const item = importContainers[index];
