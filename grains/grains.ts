@@ -128,13 +128,17 @@ const updateGrainsContent = (content: JQuery) => {
   return content.html(saleHtml);
 };
 
+const updateTabs = (tabs: JQuery[]) => {
+  tabs.forEach((tabEl, index) => {
+    if (index !== currentTab) tabEl.attr("data-active", 'false');
+    else tabEl.attr("data-active", 'true');
+  });
+};
+
 const createTabChange =
   (content: JQuery, tabs: JQuery[], tab: number) => (e) => {
     currentTab = tab;
-    tabs.forEach((tabEl, index) => {
-      if (index !== tab) tabEl.attr("data-active", 'false');
-      else tabEl.attr("data-active", 'true');
-    });
+    updateTabs(tabs);
     updateGrainsContent(content);
   };
 
@@ -143,6 +147,7 @@ $(document).ready(() => {
   const tabPurchase = $("#grains__tabs__tab_purchase");
   const tabSale = $("#grains__tabs__tab_sale");
   const tabs = [tabPurchase, tabSale];
+  updateTabs(tabs);
 
   tabPurchase.on("click", createTabChange(content, tabs, 0));
   tabSale.on("click", createTabChange(content, tabs, 1));

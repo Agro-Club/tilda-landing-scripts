@@ -42,9 +42,9 @@
   </div>
 </div>
 <script>
-(()=>{var P=(r,t)=>()=>(t||r((t={exports:{}}).exports,t),t.exports);var n=(r,t,e)=>new Promise((a,s)=>{var i=p=>{try{_(e.next(p))}catch(d){s(d)}},c=p=>{try{_(e.throw(p))}catch(d){s(d)}},_=p=>p.done?a(p.value):Promise.resolve(p.value).then(i,c);_((e=e.apply(r,t)).next())});var A=P(o=>{var u=(r,t)=>n(o,null,function*(){let e=yield fetch(r,t),a=yield e.json();if(e.ok)return a;throw new Error(r.toString()+" "+e.statusText)}),v=r=>n(o,null,function*(){let t=yield Promise.all([u(`https://api.v2.agro.club/api/v1/market/bids/?bid_type=purchase&page_size=1&sort=-price_exw&product=${r}&source_address=36818`),u(`https://api.v2.agro.club/api/v1/market/bids/?bid_type=sale&page_size=1&sort=price_cpt&product=${r}&source_address=36818`)]);return[t[0].results[0],t[1].results[0]]}),f=()=>n(o,null,function*(){let r=[],t=yield u("https://api.v2.agro.club/api/v1/products?page_size=6");return(yield Promise.all(t.slice(0,6).map(a=>v(a.slug)))).filter(a=>a[0]&&a[1]).forEach((a,s)=>{let i=a[0],c=a[1];r.push({title:t[s].title,purchase:{priceExw:i.price_exw,priceCpt:i.price_cpt},sale:{priceExw:c.price_exw,priceCpt:c.price_cpt}})}),r}),w=f(),h=(r,t)=>`
+(()=>{var v=(t,r)=>()=>(r||t((r={exports:{}}).exports,r),r.exports);var n=(t,r,e)=>new Promise((a,p)=>{var s=c=>{try{_(e.next(c))}catch(d){p(d)}},i=c=>{try{_(e.throw(c))}catch(d){p(d)}},_=c=>c.done?a(c.value):Promise.resolve(c.value).then(s,i);_((e=e.apply(t,r)).next())});var C=v(o=>{var u=(t,r)=>n(o,null,function*(){let e=yield fetch(t,r),a=yield e.json();if(e.ok)return a;throw new Error(t.toString()+" "+e.statusText)}),f=t=>n(o,null,function*(){let r=yield Promise.all([u(`https://api.v2.agro.club/api/v1/market/bids/?bid_type=purchase&page_size=1&sort=-price_exw&product=${t}&source_address=36818`),u(`https://api.v2.agro.club/api/v1/market/bids/?bid_type=sale&page_size=1&sort=price_cpt&product=${t}&source_address=36818`)]);return[r[0].results[0],r[1].results[0]]}),w=()=>n(o,null,function*(){let t=[],r=yield u("https://api.v2.agro.club/api/v1/products?page_size=6");return(yield Promise.all(r.slice(0,6).map(a=>f(a.slug)))).filter(a=>a[0]&&a[1]).forEach((a,p)=>{let s=a[0],i=a[1];t.push({title:r[p].title,purchase:{priceExw:s.price_exw,priceCpt:s.price_cpt},sale:{priceExw:i.price_exw,priceCpt:i.price_cpt}})}),t}),A=w(),m=(t,r)=>`
   <div class="grains__card">
-    <h4 class="grains__card__title typography_h5">${r.title}</h4>
+    <h4 class="grains__card__title typography_h5">${t.title}</h4>
     <div class="grains__card__description typography_caption-default">
       300 \u0442 / \u226510
     </div>
@@ -53,20 +53,20 @@
         class="grains__card__price typography_caption-default"
         data-type="cpt"
       >
-        ${r[t].priceCpt} \u20BD/\u043A\u0433
+        ${t[r].priceCpt} \u20BD/\u043A\u0433
         <span class="grains__card__price__caption typography_caption-default">
           CPT
         </span>
       </div>
       <div class="grains__card__price typography_h5-bold" data-type="exw">
-        ${r[t].priceExw} \u20BD/\u043A\u0433
+        ${t[r].priceExw} \u20BD/\u043A\u0433
         <span class="grains__card__price__caption typography_caption-default">
           EXW
         </span>
       </div>
     </div>
   </div>
-`,l="",g="",y=0,b=r=>{if(!(!l||!g))return y===1?r.html(l):r.html(g)},m=(r,t,e)=>a=>{y=e,t.forEach((s,i)=>{i!==e?s.attr("data-active","false"):s.attr("data-active","true")}),b(r)};$(document).ready(()=>{let r=$("#grains__content"),t=$("#grains__tabs__tab_purchase"),e=$("#grains__tabs__tab_sale"),a=[t,e];t.on("click",m(r,a,0)),e.on("click",m(r,a,1)),w.then(s=>{[l,g]=s.reduce((i,c)=>[i[0]+h(c,"purchase"),i[1]+h(c,"sale")],["",""]),b(r),$("#grains__loader").hide()})})});A();})();
+`,l="",g="",h=0,b=t=>{if(!(!l||!g))return h===1?t.html(l):t.html(g)},P=t=>{t.forEach((r,e)=>{e!==h?r.attr("data-active","false"):r.attr("data-active","true")})},y=(t,r,e)=>a=>{h=e,P(r),b(t)};$(document).ready(()=>{let t=$("#grains__content"),r=$("#grains__tabs__tab_purchase"),e=$("#grains__tabs__tab_sale"),a=[r,e];P(a),r.on("click",y(t,a,0)),e.on("click",y(t,a,1)),A.then(p=>{[l,g]=p.reduce((s,i)=>[s[0]+m(i,"purchase"),s[1]+m(i,"sale")],["",""]),b(t),$("#grains__loader").hide()})})});C();})();
 </script>
 <style>
   .grains {
