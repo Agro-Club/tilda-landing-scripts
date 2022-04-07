@@ -118,14 +118,44 @@ const createCard = (product: Product, bid_type: BidFromApi["bid_type"]) => `
   </div>
 `;
 
+let purchaseHtml = "";
+let saleHtml = "";
+let currentTab = 0;
+
+const updateGrainsContent = (content: JQuery) => {
+  if (!purchaseHtml || !saleHtml) return;
+  if (currentTab === 1) return content.html(purchaseHtml);
+  return content.html(saleHtml);
+};
+
+const createTabChange =
+  (content: JQuery, tabs: JQuery[], tab: number) => (e) => {
+    currentTab = tab;
+    tabs.forEach((tabEl, index) => {
+      if (index !== tab) tabEl.attr("data-active", 'false');
+      else tabEl.attr("data-active", 'true');
+    });
+    updateGrainsContent(content);
+  };
+
 $(document).ready(() => {
+  const content = $("#grains__content");
+  const tabPurchase = $("#grains__tabs__tab_purchase");
+  const tabSale = $("#grains__tabs__tab_sale");
+  const tabs = [tabPurchase, tabSale];
+
+  tabPurchase.on("click", createTabChange(content, tabs, 0));
+  tabSale.on("click", createTabChange(content, tabs, 1));
+
   productPromise.then((products) => {
-    $("#grains__content").html(
-      products.reduce(
-        (acc, product) => acc + createCard(product, "purchase"),
-        ""
-      )
+    [purchaseHtml, saleHtml] = products.reduce(
+      (acc, product) => [
+        acc[0] + createCard(product, "purchase"),
+        acc[1] + createCard(product, "sale"),
+      ],
+      ["", ""]
     );
+    updateGrainsContent(content);
     $("#grains__loader").hide();
   });
 });
