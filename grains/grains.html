@@ -50,7 +50,80 @@
   </div>
 </div>
 <script>
-  (()=>{var P=(e,r)=>()=>(r||e((r={exports:{}}).exports,r),r.exports);var n=(e,r,t)=>new Promise((a,p)=>{var s=c=>{try{_(t.next(c))}catch(u){p(u)}},i=c=>{try{_(t.throw(c))}catch(u){p(u)}},_=c=>c.done?a(c.value):Promise.resolve(c.value).then(s,i);_((t=t.apply(e,r)).next())});var C=P(o=>{var d=(e,r)=>n(o,null,function*(){let t=yield fetch(e,r),a=yield t.json();if(t.ok)return a;throw new Error(e.toString()+" "+t.statusText)}),f=e=>n(o,null,function*(){let r=yield Promise.all([d(`https://api.v2.agro.club/api/v1/market/bids/?bid_type=purchase&page_size=1&sort=-price_exw&product=${e}&source_address=36818`),d(`https://api.v2.agro.club/api/v1/market/bids/?bid_type=sale&page_size=1&sort=price_cpt&product=${e}&source_address=36818`)]);return[r[0].results[0],r[1].results[0]]}),h=e=>`${e.quantity} \u0442${e.parameters[0]?` / ${e.parameters[0].condition_label}${e.parameters[0].parameter_value}`:""}`,w=()=>n(o,null,function*(){let e=[],r=yield d("https://api.v2.agro.club/api/v1/products?page_size=6");return(yield Promise.all(r.slice(0,6).map(a=>f(a.slug)))).filter(a=>a[0]&&a[1]).forEach((a,p)=>{let s=a[0],i=a[1];e.push({title:r[p].title,purchase:{priceExw:s.price_exw,priceCpt:s.price_cpt},sale:{priceExw:i.price_exw,priceCpt:i.price_cpt},description:{purchase:h(s),sale:h(s)}})}),e}),A=w(),y=(e,r)=>`
+  (() => {
+    var P = (e, r) => () => (
+      r || e((r = { exports: {} }).exports, r), r.exports
+    );
+    var n = (e, r, t) =>
+      new Promise((a, p) => {
+        var s = (c) => {
+            try {
+              _(t.next(c));
+            } catch (u) {
+              p(u);
+            }
+          },
+          i = (c) => {
+            try {
+              _(t.throw(c));
+            } catch (u) {
+              p(u);
+            }
+          },
+          _ = (c) =>
+            c.done ? a(c.value) : Promise.resolve(c.value).then(s, i);
+        _((t = t.apply(e, r)).next());
+      });
+    var C = P((o) => {
+      var d = (e, r) =>
+          n(o, null, function* () {
+            let t = yield fetch(e, r),
+              a = yield t.json();
+            if (t.ok) return a;
+            throw new Error(e.toString() + " " + t.statusText);
+          }),
+        f = (e) =>
+          n(o, null, function* () {
+            let r = yield Promise.all([
+              d(
+                `https://api.v2.agro.club/api/v1/market/bids/?bid_type=purchase&page_size=1&sort=-price_exw&product=${e}&source_address=36818`
+              ),
+              d(
+                `https://api.v2.agro.club/api/v1/market/bids/?bid_type=sale&page_size=1&sort=price_cpt&product=${e}&source_address=36818`
+              ),
+            ]);
+            return [r[0].results[0], r[1].results[0]];
+          }),
+        h = (e) =>
+          `${e.quantity} \u0442${
+            e.parameters[0]
+              ? ` / ${e.parameters[0].condition_label}${e.parameters[0].parameter_value}`
+              : ""
+          }`,
+        w = () =>
+          n(o, null, function* () {
+            let e = [],
+              r = yield d(
+                "https://api.v2.agro.club/api/v1/products?page_size=6"
+              );
+            return (
+              (yield Promise.all(r.slice(0, 6).map((a) => f(a.slug))))
+                .filter((a) => a[0] && a[1])
+                .forEach((a, p) => {
+                  let s = a[0],
+                    i = a[1];
+                  e.push({
+                    title: r[p].title,
+                    purchase: { priceExw: s.price_exw, priceCpt: s.price_cpt },
+                    sale: { priceExw: i.price_exw, priceCpt: i.price_cpt },
+                    description: { purchase: h(s), sale: h(s) },
+                  });
+                }),
+              e
+            );
+          }),
+        A = w(),
+        y = (e, r) => `
   <div class="grains__card">
     <h4 class="grains__card__title typography_h5">${e.title}</h4>
     <div class="grains__card__description typography_caption-default">
@@ -74,8 +147,43 @@
       </div>
     </div>
   </div>
-`,l="",m="",g=0,v=e=>{if(!(!l||!m))return g===1?e.html(l):e.html(m)},F=e=>{e.forEach((r,t)=>{t!==g?r.attr("data-active","false"):r.attr("data-active","true")})},b=(e,r,t)=>()=>{g=t,F(r),v(e)};$(document).ready(()=>{let e=$("#grains__content"),r=$("#grains__tabs__tab_purchase"),t=$("#grains__tabs__tab_sale"),a=[r,t];r.attr("data-active","true"),r.on("click",b(e,a,0)),t.on("click",b(e,a,1)),A.then(p=>{[l,m]=p.reduce((s,i)=>[s[0]+y(i,"purchase"),s[1]+y(i,"sale")],["",""]),v(e),$("#grains__loader").hide()})})});C();})();
-
+`,
+        l = "",
+        m = "",
+        g = 0,
+        v = (e) => {
+          if (!(!l || !m)) return g === 1 ? e.html(l) : e.html(m);
+        },
+        F = (e) => {
+          e.forEach((r, t) => {
+            t !== g
+              ? r.attr("data-active", "false")
+              : r.attr("data-active", "true");
+          });
+        },
+        b = (e, r, t) => () => {
+          (g = t), F(r), v(e);
+        };
+      $(document).ready(() => {
+        let e = $("#grains__content"),
+          r = $("#grains__tabs__tab_purchase"),
+          t = $("#grains__tabs__tab_sale"),
+          a = [r, t];
+        r.attr("data-active", "true"),
+          r.on("click", b(e, a, 0)),
+          t.on("click", b(e, a, 1)),
+          A.then((p) => {
+            ([l, m] = p.reduce(
+              (s, i) => [s[0] + y(i, "purchase"), s[1] + y(i, "sale")],
+              ["", ""]
+            )),
+              v(e),
+              $("#grains__loader").hide();
+          });
+      });
+    });
+    C();
+  })();
 </script>
 <style>
   .grains {
@@ -233,6 +341,7 @@
 
     .grains__tabs {
       position: relative;
+      padding-top: 24px;
     }
 
     .grains__tabs__wrapper {
