@@ -50,7 +50,10 @@ const onCountryDetect = () => {
   const regionByUrl = getRegionByUrl();
   const regionOverride = getRegionOverride();
   const detectedRegion = span.text();
-
+  console.log('Region Detected')
+  console.log('By URL', regionByUrl)
+  console.log('By Override', regionOverride)
+  console.log('By detected', detectedRegion)
   if (regionKeys.includes(detectedRegion)) {
     if (!regionOverride) {
       setRegionOverride(detectedRegion);
