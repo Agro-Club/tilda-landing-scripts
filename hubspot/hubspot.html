@@ -5,35 +5,39 @@
 ></script>
 <script>
   var selector = "#get-a-demo";
-  var modalEl = $(selector)[0].parentNode.parentNode.parentNode;
-  var observer = new MutationObserver((mutationRecords) => {
-    if (
-      mutationRecords[0].attributeName === "class" &&
-      mutationRecords[0].target.classList.contains("t-popup_show")
-    ) {
-      const interval = setInterval(() => {
-        if (window.hbspt) {
-          hbspt.forms.create({
-            region: "na1",
-            portalId: "21497151",
-            formId: "bdb8f34a-bea9-4e50-abeb-33f62783d308",
-            target: selector,
-            submitButtonClass: "hs-custom-button",
-            onFormReady: (form) => {
-              $(".loader").remove();
-              $(form).children(".hubspot-link__container.sproket").remove();
-              const iframe = $(".hs-form-iframe");
-              const contents = iframe.contents();
-              contents.find("head").append($("#form-styles").clone());
-            },
-          });
-          clearInterval(interval);
-        }
-      }, 100);
-    }
-  });
+  var demoEl = $(selector);
+  if (demoEl && demoEl[0]) {
+    var modalEl = demoEl[0].parentNode.parentNode.parentNode;
+    var observer = new MutationObserver((mutationRecords) => {
+      if (
+        mutationRecords[0].attributeName === "class" &&
+        mutationRecords[0].target.classList.contains("t-popup_show")
+      ) {
+        const interval = setInterval(() => {
+          if (window.hbspt) {
+            hbspt.forms.create({
+              region: "na1",
+              portalId: "21497151",
+              formId: "bdb8f34a-bea9-4e50-abeb-33f62783d308",
+              target: selector,
+              submitButtonClass: "hs-custom-button",
+              onFormReady: (form) => {
+                $(".loader").remove();
+                $(form).children(".hubspot-link__container.sproket").remove();
+                const iframe = $(".hs-form-iframe");
+                const contents = iframe.contents();
+                contents.find("head").append($("#form-styles").clone());
+                observer.disconnect();
+              },
+            });
+            clearInterval(interval);
+          }
+        }, 100);
+      }
+    });
 
-  observer.observe(modalEl, { attributes: true });
+    observer.observe(modalEl, { attributes: true });
+  }
 </script>
 
 <style>
