@@ -69,7 +69,6 @@ const onCountryDetect = () => {
     redirect(detectedRegion);
   } else {
     setRegionOverride("us");
-    redirect("us");
   }
 };
 
