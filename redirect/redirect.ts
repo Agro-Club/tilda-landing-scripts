@@ -66,7 +66,8 @@ const onCountryDetect = () => {
   const detectedRegion = span.text();
   if (regionKeys.includes(detectedRegion)) {
     setRegionOverride(detectedRegion);
-    redirect(detectedRegion);
+    if (detectedRegion !== regionByUrl && detectedRegion !== "us")
+      redirect(detectedRegion);
   } else {
     setRegionOverride("us");
   }
