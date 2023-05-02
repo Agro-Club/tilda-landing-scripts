@@ -21,13 +21,6 @@ const regions = {
 
 const regionKeys = Object.keys(regions);
 
-//Functions
-const setRegionOverride = (region: string) => {
-  sessionStorage.setItem("OVERRIDE_REGION", region);
-};
-
-const getRegionOverride = () => sessionStorage.getItem("OVERRIDE_REGION");
-
 const getRegionByUrl = () => {
   switch (true) {
     case url.includes(regions.ca.root):
@@ -57,23 +50,13 @@ const redirect = (region: string) => {
  */
 const onCountryDetect = () => {
   const regionByUrl = getRegionByUrl();
-  if (regionByUrl) return setRegionOverride(regionByUrl);
-
-  const regionOverride = getRegionOverride();
-  if (regionOverride) {
-    if (regionOverride !== regionByUrl && regionOverride !== "us")
-      redirect(regionOverride);
-    return;
-  }
+  if (regionByUrl) return;
 
   const span = $('[data-replace-key="detectedRegion"]');
   const detectedRegion = span.text();
   if (regionKeys.includes(detectedRegion)) {
-    setRegionOverride(detectedRegion);
     if (detectedRegion !== regionByUrl && detectedRegion !== "us")
       redirect(detectedRegion);
-  } else {
-    setRegionOverride("us");
   }
 };
 
