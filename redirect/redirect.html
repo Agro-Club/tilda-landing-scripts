@@ -6,6 +6,8 @@
   }
 </style>
 
+<!--REDIRECT-->
 <script>
 (()=>{var o=location.pathname,t={us:{title:"USA",root:"/us"},ca:{title:"Canada",root:"/ca"},es:{title:"Spain",root:"/es"},ru:{title:"Russia",root:"/ru"}},a=Object.keys(t),c=e=>{sessionStorage.setItem("OVERRIDE_REGION",e)},u=()=>sessionStorage.getItem("OVERRIDE_REGION"),d=()=>{switch(!0){case o.includes(t.ca.root):return"ca";case o.includes(t.es.root):return"es";case o.includes(t.ru.root):return"ru";case o.includes(t.us.root):return"us";default:return null}},r=e=>{location.replace(`${location.origin}${t[e].root}`)},l=()=>{let e=d();if(e)return c(e);let i=$('[data-replace-key="detectedRegion"]'),s=u(),n=i.text();a.includes(n)?s?r(s):(c(n),r(n)):r("us")};$(document).ready(()=>{$('[data-replace-key="detectedRegion"]').on("DOMSubtreeModified",l)});})();
 </script>
+<!--END REDIRECT-->
