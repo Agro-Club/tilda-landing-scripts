@@ -63,14 +63,12 @@ const onCountryDetect = () => {
   const span = $('[data-replace-key="detectedRegion"]');
   const regionOverride = getRegionOverride();
   const detectedRegion = span.text();
+  if (regionOverride) return redirect(regionOverride);
   if (regionKeys.includes(detectedRegion)) {
-    if (!regionOverride) {
-      setRegionOverride(detectedRegion);
-      redirect(detectedRegion);
-    } else {
-      redirect(regionOverride);
-    }
+    setRegionOverride(detectedRegion);
+    redirect(detectedRegion);
   } else {
+    setRegionOverride("us");
     redirect("us");
   }
 };
