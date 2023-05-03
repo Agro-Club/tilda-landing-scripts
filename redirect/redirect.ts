@@ -1,4 +1,4 @@
-const url = location.pathname;
+const pathname = location.pathname;
 
 const regions = {
   us: {
@@ -22,19 +22,10 @@ const regions = {
 const regionKeys = Object.keys(regions);
 
 const getRegionByUrl = () => {
-  console.log(location.pathname);
-  switch (true) {
-    case url.includes(regions.ca.root):
-      return "ca";
-    case url.includes(regions.es.root):
-      return "es";
-    case url.includes(regions.ru.root):
-      return "ru";
-    case url.includes(regions.us.root):
-      return "us";
-    default:
-      return null;
-  }
+  Object.keys(regions).map((key) => {
+    if (pathname === regions[key].root) return key;
+  });
+  return null;
 };
 
 const redirect = (region: string) => {

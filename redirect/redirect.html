@@ -7,5 +7,5 @@
 </style>
 
 <script>
-(()=>{var t=location.pathname,e={us:{title:"USA",root:"/us"},ca:{title:"Canada",root:"/ca"},es:{title:"Spain",root:"/es"},ru:{title:"Russia",root:"/ru"}},r=Object.keys(e),s=()=>{switch(console.log(location.pathname),!0){case t.includes(e.ca.root):return"ca";case t.includes(e.es.root):return"es";case t.includes(e.ru.root):return"ru";case t.includes(e.us.root):return"us";default:return null}},c=o=>{location.replace(`${location.origin}${e[o].root}`)},a=()=>{if(s())return;let n=$('[data-replace-key="detectedRegion"]').text();r.includes(n)&&n!=="us"&&c(n)};$(document).ready(()=>{$('[data-replace-key="detectedRegion"]').on("DOMSubtreeModified",a)});})();
+(()=>{var n=location.pathname,t={us:{title:"USA",root:"/us"},ca:{title:"Canada",root:"/ca"},es:{title:"Spain",root:"/es"},ru:{title:"Russia",root:"/ru"}},r=Object.keys(t),a=()=>(Object.keys(t).map(e=>{if(n===t[e].root)return e}),null),c=e=>{location.replace(`${location.origin}${t[e].root}`)},i=()=>{if(a())return;let o=$('[data-replace-key="detectedRegion"]').text();r.includes(o)&&o!=="us"&&c(o)};$(document).ready(()=>{$('[data-replace-key="detectedRegion"]').on("DOMSubtreeModified",i)});})();
 </script>
