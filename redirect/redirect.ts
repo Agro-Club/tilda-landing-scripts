@@ -22,6 +22,7 @@ const regions = {
 const regionKeys = Object.keys(regions);
 
 const getRegionByUrl = () => {
+  console.log(location.pathname);
   switch (true) {
     case url.includes(regions.ca.root):
       return "ca";
@@ -40,24 +41,14 @@ const redirect = (region: string) => {
   location.replace(`${location.origin}${regions[region].root}`);
 };
 
-/**
- * Algorithm
- * 1. If no region is in url (e.g. root) then continue to step 2a, else to 2b
- * 2a. If region from tilda "detectedRegion" is known then go to step 3a, else to 3b
- * 2b. Just redirect to us
- * 3a. If "regionOverride" isn't set in localStorage then set it to detected region and redirect
- * 3b. Redirect to "regionOverride"
- */
 const onCountryDetect = () => {
   const regionByUrl = getRegionByUrl();
   if (regionByUrl) return;
 
   const span = $('[data-replace-key="detectedRegion"]');
   const detectedRegion = span.text();
-  if (regionKeys.includes(detectedRegion)) {
-    if (detectedRegion !== regionByUrl && detectedRegion !== "us")
-      redirect(detectedRegion);
-  }
+  if (regionKeys.includes(detectedRegion) && detectedRegion !== "us")
+    redirect(detectedRegion);
 };
 
 $(document).ready(() => {
