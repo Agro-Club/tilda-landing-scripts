@@ -9,6 +9,10 @@ const regions = {
     title: "Canada",
     root: "/ca",
   },
+  br: {
+    title: "Brazil",
+    root: "/br",
+  },
   es: {
     title: "Spain",
     root: "/es",

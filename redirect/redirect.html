@@ -7,5 +7,5 @@
 </style>
 
 <script>
-(()=>{var n=location.pathname,t={us:{title:"USA",root:"/us"},ca:{title:"Canada",root:"/ca"},es:{title:"Spain",root:"/es"},ru:{title:"Russia",root:"/ru"}},r=Object.keys(t),i=()=>Object.keys(t).find(e=>n===t[e].root),c=e=>{location.replace(`${location.origin}${t[e].root}`)},s=()=>{if(i())return;let o=$('[data-replace-key="detectedRegion"]').text();o!=="us"&&r.includes(o)&&c(o)};$(document).ready(()=>{$('[data-replace-key="detectedRegion"]').on("DOMSubtreeModified",s)});})();
+(()=>{var n=location.pathname,e={us:{title:"USA",root:"/us"},ca:{title:"Canada",root:"/ca"},br:{title:"Brazil",root:"/br"},es:{title:"Spain",root:"/es"},ru:{title:"Russia",root:"/ru"}},r=Object.keys(e),i=()=>Object.keys(e).find(t=>n===e[t].root),a=t=>{location.replace(`${location.origin}${e[t].root}`)},c=()=>{if(i())return;let o=$('[data-replace-key="detectedRegion"]').text();o!=="us"&&r.includes(o)&&a(o)};$(document).ready(()=>{$('[data-replace-key="detectedRegion"]').on("DOMSubtreeModified",c)});})();
 </script>
