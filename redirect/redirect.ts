@@ -27,7 +27,7 @@ const regionKeys = Object.keys(regions);
 
 const getRegionByUrl = () => {
   return Object.keys(regions).find((key) => {
-    return pathname === regions[key].root;
+    return pathname.indexOf(regions[key].root) !== -1;
   });
 };
 
