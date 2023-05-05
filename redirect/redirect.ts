@@ -22,26 +22,21 @@ const regions = {
 const regionKeys = Object.keys(regions);
 
 const getRegionByUrl = () => {
-  Object.keys(regions).map((key) => {
-    if (pathname === regions[key].root) return key;
+  return Object.keys(regions).find((key) => {
+    return pathname === regions[key].root;
   });
-  return null;
 };
 
 const redirect = (region: string) => {
-  console.log(region);
   location.replace(`${location.origin}${regions[region].root}`);
 };
 
 const onCountryDetect = () => {
-  console.log("Hello!");
   const regionByUrl = getRegionByUrl();
-  console.log(regionByUrl);
   if (regionByUrl) return;
 
   const span = $('[data-replace-key="detectedRegion"]');
   const detectedRegion = span.text();
-  console.log(detectedRegion);
   if (detectedRegion === "us") return;
   if (regionKeys.includes(detectedRegion)) redirect(detectedRegion);
 };
