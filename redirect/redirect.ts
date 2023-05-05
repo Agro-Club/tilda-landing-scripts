@@ -29,17 +29,21 @@ const getRegionByUrl = () => {
 };
 
 const redirect = (region: string) => {
+  console.log(region);
   location.replace(`${location.origin}${regions[region].root}`);
 };
 
 const onCountryDetect = () => {
+  console.log("Hello!");
   const regionByUrl = getRegionByUrl();
+  console.log(regionByUrl);
   if (regionByUrl) return;
 
   const span = $('[data-replace-key="detectedRegion"]');
   const detectedRegion = span.text();
-  if (regionKeys.includes(detectedRegion) && detectedRegion !== "us")
-    redirect(detectedRegion);
+  console.log(detectedRegion);
+  if (detectedRegion === "us") return;
+  if (regionKeys.includes(detectedRegion)) redirect(detectedRegion);
 };
 
 $(document).ready(() => {
