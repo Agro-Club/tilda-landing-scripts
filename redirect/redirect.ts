@@ -35,17 +35,20 @@ const redirect = (region: string) => {
   location.replace(`${location.origin}${regions[region].root}`);
 };
 
-const onCountryDetect = () => {
+const onCountryDetect = (detectedRegionElement: JQuery<HTMLElement>) => {
   const regionByUrl = getRegionByUrl();
   if (regionByUrl) return;
 
-  const span = $('[data-replace-key="detectedRegion"]');
-  const detectedRegion = span.text();
+  const detectedRegion = detectedRegionElement.text();
   if (detectedRegion === "us") return;
   if (regionKeys.includes(detectedRegion)) redirect(detectedRegion);
 };
 
 $(document).ready(() => {
   const span = $('[data-replace-key="detectedRegion"]');
-  span.on("DOMSubtreeModified", onCountryDetect);
+  const handler = () => {
+    onCountryDetect(span);
+    span[0].removeEventListener("DOMSubtreeModified", handler);
+  };
+  span.on("DOMSubtreeModified", handler);
 });
