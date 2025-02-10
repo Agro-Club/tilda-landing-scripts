@@ -21,6 +21,6 @@
   "homepage": "https://github.com/Agro-Club/tilda-landing-scripts#readme",
   "dependencies": {
     "@types/jquery": "^3.5.14",
-    "esbuild": "^0.14.31"
+    "esbuild": "^0.25.0"
   }
 }
